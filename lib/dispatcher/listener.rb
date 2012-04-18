@@ -13,7 +13,8 @@ class Listener
       data = line
       @logger.debug "incoming -> #{data}"
       next if line.reverse[0] == "#"
-      @logger.info "[#{Thread.current.to_s}] -> #{data}"
+      parts = data.split(',')
+      @logger.info "[#{parts[1]}] -> #{data}"
       client.close
       break
     end
