@@ -1,0 +1,6 @@
+LIVEGTS_SERVER: "fleetservice.0-one.net"
+LIVEGTS_PORT: 8600
+TRACKER_PORT: 31200
+GOWANE_DESTINATIONS:
+  - "http://okouam-gowane.codeifier.com:81/events"
+  - "http://gowane.0-one.net/events"
