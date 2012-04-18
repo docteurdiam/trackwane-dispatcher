@@ -27,15 +27,21 @@ class Listener
 
     begin
       remote.send(data, 0)
-    rescue
-      @logger.error(e)
+    rescue Exception => e
+      @logger.error "Failed to forward message to the LiveGTS server"
+      @logger.error(e.message)
     end
 
     remote.close
 
     @cfg['GOWANE_DESTINATIONS'].each do |url|
-      RestClient.post "http://#{url}", {data: data}
-      @logger.debug url
+      begin
+        RestClient.post "http://#{url}", {data: data}
+      rescue Exception => e
+        @logger.error "An error occured while relaying to #{url}"
+        @logger.error e.message
+      end
+
     end
 
     @logger.debug "[#{Thread.current.to_s}] :: Forwarding complete"
